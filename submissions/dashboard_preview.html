@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<title>Operating Dashboard — AURA</title>
+<style>
+  @page {
+    size: A4 portrait;
+    margin: 8mm 10mm;
+  }
+  @media print {
+    body { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+    .page-break { page-break-after: always; break-after: page; }
+  }
+  * { box-sizing: border-box; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    font-size: 8.2pt;
+    line-height: 1.32;
+    color: #0f172a;
+    margin: 0;
+    padding: 0;
+  }
+  .page {
+    padding: 0;
+  }
+  h1 {
+    font-size: 13pt;
+    font-weight: 700;
+    color: #0f172a;
+    margin: 0 0 4px 0;
+    border-bottom: 2px solid #0284c7;
+    padding-bottom: 3px;
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+  }
+  h1 small {
+    font-size: 7.5pt;
+    font-weight: 500;
+    color: #64748b;
+  }
+  h2 {
+    font-size: 9.5pt;
+    font-weight: 700;
+    color: #1e293b;
+    margin: 6px 0 3px 0;
+    border-left: 3px solid #0284c7;
+    padding-left: 5px;
+    background: #f8fafc;
+    padding-top: 1px;
+    padding-bottom: 1px;
+  }
+  h3 {
+    font-size: 9pt;
+    font-weight: 700;
+    color: #0369a1;
+    margin: 6px 0 3px 0;
+  }
+  .meta-bar {
+    background: #f1f5f9;
+    border: 1px solid #e2e8f0;
+    border-radius: 4px;
+    padding: 4px 7px;
+    margin-bottom: 4px;
+    font-size: 7.8pt;
+  }
+  .meta-bar p { margin: 1.5px 0; }
+  .highlight-badge {
+    display: inline-block;
+    padding: 1px 4px;
+    border-radius: 3px;
+    font-weight: 600;
+    font-size: 7.2pt;
+  }
+  .badge-blue { background: #e0f2fe; color: #0369a1; border: 1px solid #bae6fd; }
+  .badge-green { background: #dcfce7; color: #15803d; border: 1px solid #bbf7d0; }
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 3px 0 5px 0;
+    font-size: 7.6pt;
+  }
+  th, td {
+    border: 1px solid #cbd5e1;
+    padding: 3px 4.5px;
+    vertical-align: middle;
+    text-align: left;
+  }
+  th {
+    background: #f1f5f9;
+    font-weight: 600;
+    color: #334155;
+  }
+  tr:nth-child(even) td {
+    background: #fafbfc;
+  }
+  .formula-box {
+    background: #f8fafc;
+    border: 1px solid #cbd5e1;
+    border-left: 3px solid #0284c7;
+    border-radius: 4px;
+    padding: 5px 8px;
+    margin: 5px 0;
+    font-family: 'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, monospace;
+    font-size: 7.8pt;
+    color: #0f172a;
+    line-height: 1.4;
+  }
+  .footer-note {
+    font-size: 7pt;
+    color: #64748b;
+    margin-top: 6px;
+    border-top: 1px dashed #cbd5e1;
+    padding-top: 3px;
+  }
+  .card-box {
+    border: 1px solid #e2e8f0;
+    border-radius: 4px;
+    padding: 6px 8px;
+    margin-bottom: 6px;
+    background: #ffffff;
+  }
+  ul {
+    margin: 3px 0 4px 16px;
+    padding: 0;
+  }
+  li {
+    margin-bottom: 2px;
+  }
+  p {
+    margin: 3px 0;
+  }
+</style>
+</head>
+<body>
+
+<!-- PAGE 1 -->
+<div class="page page-break">
+  <h1>
+    <span>Operating Dashboard — AURA UrbanWeather Agent</span>
+    <small>Bản rút gọn Trang 1</small>
+  </h1>
+
+  <div class="meta-bar">
+    <p>
+      <strong>Model:</strong> B2B · 
+      <strong>Cập nhật:</strong> 2026-08-28 · 
+      <strong>Owner:</strong> Product Operations Lead (Hoàng Thị Thuyên — MSSV: 2A202601910)
+    </p>
+    <p>
+      <strong>Chẩn đoán:</strong> BQL Vinhomes Smart City trả tiền từ ngân sách vận hành; cán bộ kỹ thuật BQL vận hành hệ thống điều phối; AURA giải quyết triệt để rủi ro ngập tài sản trước khi mở rộng quan hệ cư dân.
+    </p>
+    <p>
+      <strong>North Star:</strong> <span class="highlight-badge badge-blue">Median time-to-first-value</span> · Hiện tại: <strong>6 ngày</strong> · Mục tiêu: <strong>≤ 7 ngày</strong> · Trạng thái: <span class="highlight-badge badge-green">🟢 Đang đạt</span>
+    </p>
+  </div>
+
+  <h2>1. Cây đèn 3 tầng</h2>
+  <table>
+    <thead>
+      <tr>
+        <th style="width: 10%;">Tầng · ID</th>
+        <th style="width: 32%;">Metric & Định nghĩa ngắn</th>
+        <th style="width: 25%;">Hiện tại · 🟢 / 🟡 / 🔴 · Nguồn</th>
+        <th style="width: 15%;">Nhịp · Owner</th>
+        <th style="width: 18%;">Báo trước cho · Luật</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>L · L-01</strong></td>
+        <td>Median ngày bàn giao trạm đo → Nowcast đạt F1 ≥85% có BQL xác nhận</td>
+        <td><strong>6 ngày</strong> · ≤7 / 8–14 / >14 · <code>[TB]</code></td>
+        <td>Tuần · Product Ops</td>
+        <td>Pilot activation + Paid · <strong>R-01</strong></td>
+      </tr>
+      <tr>
+        <td><strong>L · L-02</strong></td>
+        <td>Tỷ lệ cán bộ trực ban BQL có ≥2 action điều phối/tuần ÷ active</td>
+        <td><strong>75%</strong> · ≥70% / 50–69% / &lt;50% · <code>[TB]</code></td>
+        <td>Tuần · CS Lead</td>
+        <td>TTFV + Usage depth · <strong>R-02</strong></td>
+      </tr>
+      <tr>
+        <td><strong>O · O-01</strong></td>
+        <td>Sự kiện cảnh báo AI tự hoàn thành (Containment) ÷ tổng sự kiện</td>
+        <td><strong>82,0%</strong> · ≥80% / 72,4–79,9% / &lt;72,4% · <code>[MH]</code></td>
+        <td>Tuần · AI Eng</td>
+        <td>AI Cost + Gross margin · <strong>R-03</strong></td>
+      </tr>
+      <tr>
+        <td><strong>O · O-02</strong></td>
+        <td>Tổng token LLM Claude, TTS và GIS ÷ job thành công</td>
+        <td><strong>426 đ</strong> · ≤1.000 / 1.001–2.826 / >2.826 · <code>[MH]</code></td>
+        <td>Tuần · FinOps</td>
+        <td>Gross margin sau AI · <strong>R-04</strong></td>
+      </tr>
+      <tr>
+        <td><strong>O · O-03</strong></td>
+        <td>Phân khu BQL ký thuê bao chính thức ÷ BQL kết thúc pilot</td>
+        <td><strong>50%</strong> · ≥50% / 35–49% / &lt;35% · <code>[BM]</code></td>
+        <td>Tháng · Growth Lead</td>
+        <td>ARR mới + Runway · <strong>R-03</strong></td>
+      </tr>
+      <tr>
+        <td><strong>G · G-01</strong></td>
+        <td>(Doanh thu dịch vụ − toàn bộ chi phí biến đổi) ÷ Doanh thu</td>
+        <td><strong>74,4%</strong> · ≥70% / 60–69% / &lt;60% · <code>[MH]</code></td>
+        <td>Tháng · Finance</td>
+        <td>Runway + Payback · <strong>R-05</strong></td>
+      </tr>
+      <tr>
+        <td><strong>G · G-02</strong></td>
+        <td>Ending cohort BQL revenue ÷ Starting cohort BQL revenue</td>
+        <td><strong>100%</strong> · ≥110% / 100–109% / &lt;100% · <code>[BM]</code></td>
+        <td>Quý · Finance</td>
+        <td>LTV · <strong>R-05</strong></td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h2>2. Năm luật quyết định</h2>
+  <table>
+    <thead>
+      <tr>
+        <th style="width: 8%;">ID</th>
+        <th style="width: 32%;">NẾU · TRONG · VÀ</th>
+        <th style="width: 33%;">THÌ (Hành động cụ thể)</th>
+        <th style="width: 20%;">KHÔNG THÌ (Cấm phản xạ sai)</th>
+        <th style="width: 7%; text-align: center;">Dừng?</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>R-01</strong></td>
+        <td>TTFV >14 ngày · 2 cohort · ≥3 phân khu BQL pilot</td>
+        <td>Đóng băng nhận pilot mới 14 ngày; chuẩn hóa cấu hình trạm đo thành 1 quy trình cắm-là-chạy</td>
+        <td>Không giảm giá gói dịch vụ để bù TTFV</td>
+        <td style="text-align: center;"><strong>CÓ ⏹</strong></td>
+      </tr>
+      <tr>
+        <td><strong>R-02</strong></td>
+        <td>BQL action &lt;50% · 3 tuần · ≥6 cán bộ trực có tài khoản</td>
+        <td>Product Owner trực bão cùng BQL 3 ca liên tiếp để tái thiết kế luồng xác nhận</td>
+        <td>Không gửi tin nhắn đôn đốc hàng loạt qua Zalo</td>
+        <td style="text-align: center;">KHÔNG</td>
+      </tr>
+      <tr>
+        <td><strong>R-03</strong></td>
+        <td>Paid conversion &lt;35% hoặc Containment &lt;72,4% · 2 chu kỳ · ≥6 BQL</td>
+        <td>Đóng băng tiếp cận BQL mới; thiết kế lại báo cáo thiệt hại tránh được trong 1 sprint</td>
+        <td>Không nới rộng thời gian pilot miễn phí</td>
+        <td style="text-align: center;"><strong>CÓ ⏹</strong></td>
+      </tr>
+      <tr>
+        <td><strong>R-04</strong></td>
+        <td>Chi phí AI >2.826 đ/job · 2 tuần · ≥500 job cảnh báo</td>
+        <td>Bật prompt caching, chuyển model dự phòng sang tier nhẹ, giới hạn context GIS</td>
+        <td>Không tắt khâu kiểm định an toàn HITL</td>
+        <td style="text-align: center;">KHÔNG</td>
+      </tr>
+      <tr>
+        <td><strong>R-05</strong></td>
+        <td>Gross margin &lt;60% hoặc NRR &lt;100% · 2 tháng · Doanh thu ≥30tr đ</td>
+        <td>Đàm phán phụ phí bão cực đoan; đóng gói module nâng cao cho BQL hiện hữu</td>
+        <td>Không cắt giảm chi phí an toàn/server GIS</td>
+        <td style="text-align: center;">KHÔNG</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h2>3. Cổng gác 90 ngày & Tuyên bố dừng</h2>
+  <table>
+    <thead>
+      <tr>
+        <th style="width: 10%;">Ngày</th>
+        <th style="width: 32%;">Một metric · Ngưỡng</th>
+        <th style="width: 44%;">Bằng chứng vật lý</th>
+        <th style="width: 14%; text-align: center;">Đạt / Trượt</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>Ngày 30</strong></td>
+        <td>BQL xác nhận độ tin cậy Nowcast · ≥85% trên ≥20 sự kiện</td>
+        <td>Biên bản nghiệm thu kỹ thuật và log đối soát cảm biến thực địa</td>
+        <td style="text-align: center;"><strong>GO / FIX</strong></td>
+      </tr>
+      <tr>
+        <td><strong>Ngày 60</strong></td>
+        <td>Tỷ lệ tự động hoàn thành Containment · ≥75% trên ≥500 job</td>
+        <td>Báo cáo phân tích log hệ thống và nhật ký trực ban</td>
+        <td style="text-align: center;"><strong>GO / PIVOT</strong></td>
+      </tr>
+      <tr>
+        <td><strong>Ngày 90</strong></td>
+        <td>Gross margin sau chi phí AI & HITL · ≥65% trên ≥2.000 job</td>
+        <td>Báo cáo quyết toán tài chính nội bộ và hóa đơn API Cloud</td>
+        <td style="text-align: center;"><strong>GO / KILL</strong></td>
+      </tr>
+    </tbody>
+  </table>
+
+  <p style="margin: 3px 0; font-size: 7.8pt;"><strong>Kill criteria:</strong> KILL dừng hẳn hướng sản phẩm B2B cho Ban Quản Lý vào ngày 90 nếu Gross Margin vẫn dưới 50% sau 2 vòng tối ưu hóa Prompt Caching và tỷ lệ POC-to-paid đạt dưới 30% trên 10 phân khu thử nghiệm.</p>
+  <p style="margin: 3px 0; font-size: 7.8pt;"><strong>Chưa đo được:</strong> Chi phí khấu hao cảm biến thực tế trên mỗi điểm ngập ÷ ACV · Cần dữ liệu độ bền cảm biến sau 3 tháng mưa bão thực địa tại 3 hầm chui · Owner: Hardware & IoT Operations Lead · Có số ngày: 2026-11-30.</p>
+</div>
+
+<!-- PAGE 2 -->
+<div class="page">
+  <h1>
+    <span>Phụ lục Trang 2 — Phép Tính Suy Ngưỡng [MH] & Truy Vết Bằng Chứng</span>
+    <small>AURA UrbanWeather Agent</small>
+  </h1>
+
+  <div class="card-box">
+    <h3>MH-01: Chi phí AI tối đa trên mỗi job cảnh báo thành công (Gắn với O-02 & G-01)</h3>
+    <p><strong>Mục tiêu:</strong> Xác định trần chi phí AI/token để đảm bảo Gross Margin toàn dịch vụ không rơi xuống dưới ngưỡng sàn an toàn 60%.</p>
+    <ul>
+      <li><strong>Input từ Day 24–25:</strong>
+        <ul>
+          <li>Giá bán đề xuất: <strong>15.600 đ / job</strong> ($0.60 / job hoàn thành).</li>
+          <li>Gross Margin mục tiêu an toàn: <strong>≥ 60%</strong> (Trần tổng chi phí biến đổi COGS cho phép là 40% = 6.240 đ).</li>
+          <li>Chi phí biến đổi khác (Infra GIS, Retry, HITL escalation): <strong>3.414 đ / job</strong> ($0.1313 / job).</li>
+        </ul>
+      </li>
+    </ul>
+    <div class="formula-box">
+      <strong>Công thức:</strong> AI Cost trần = Giá bán × (1 − GM mục tiêu) − Chi phí biến đổi khác<br>
+      <strong>Phép tính:</strong> 15.600 × (1 − 60%) − 3.414 = 15.600 × 40% − 3.414 = 6.240 − 3.414 = <strong>2.826 đ / job</strong> ($0.1087)
+    </div>
+    <p><strong>Ngưỡng áp dụng trên Dashboard:</strong></p>
+    <ul>
+      <li>🟢 <strong>Vùng Xanh:</strong> ≤ 1.000 đ/job (Hiện tại AURA đạt <strong>426 đ ~ $0.0164</strong>, chi phí AI nằm trong vùng an toàn tuyệt đối).</li>
+      <li>🟡 <strong>Vùng Vàng:</strong> 1.001 – 2.826 đ/job (Cần rà soát độ dài token và tần suất gọi LLM).</li>
+      <li>🔴 <strong>Vùng Đỏ:</strong> > 2.826 đ/job (Kích hoạt ngay luật <code>R-04</code>: bật Prompt Caching, hạ tier LLM dự phòng và giới hạn context GIS).</li>
+    </ul>
+  </div>
+
+  <div class="card-box">
+    <h3>MH-02: Tỷ lệ Containment tự động tối thiểu để bảo toàn Gross Margin (Gắn với O-01)</h3>
+    <p><strong>Mục tiêu:</strong> Xác định tỷ lệ tự động hoàn thành tối thiểu của AI để chi phí can thiệp thủ công (HITL) không ăn mòn biên lợi nhuận của startup.</p>
+    <ul>
+      <li><strong>Input từ Day 24–25:</strong>
+        <ul>
+          <li>Doanh thu trên mỗi job hoàn thành: <strong>15.600 đ / job</strong> ($0.60).</li>
+          <li>Chi phí mỗi ca can thiệp thủ công HITL: <strong>13.000 đ / ca</strong> ($0.50) (Lương fully-loaded $6/h × 5 phút trực ban).</li>
+          <li>Chi phí kỹ thuật biến đổi cố định (API LLM + Speech TTS + Infra GIS): <strong>634 đ / job</strong> ($0.0244).</li>
+          <li>Trần tổng chi phí biến đổi COGS cho phép để giữ GM ≥ 60%: <strong>6.240 đ / job</strong> ($0.24).</li>
+        </ul>
+      </li>
+    </ul>
+    <div class="formula-box">
+      <strong>Công thức:</strong> COGS = Chi phí kỹ thuật + (1 − Containment) × Chi phí HITL ≤ 6.240 đ<br>
+      <strong>Phép tính:</strong> 1 − (6.240 − 634) ÷ 13.000 = 1 − (5.606 ÷ 13.000) = 1 − 0.4312 = <strong>56,88%</strong><br>
+      <em>(Đối chiếu phân tích độ nhạy Day 25 Tab 3: Điểm hòa vốn Containment giữ nguyên vẹn GM 74.4% là <strong>72.4%</strong>; dưới 64% là vùng lỗ).</em>
+    </div>
+    <p><strong>Ngưỡng áp dụng trên Dashboard:</strong></p>
+    <ul>
+      <li>🟢 <strong>Vùng Xanh:</strong> ≥ 80.0% (Hiện tại Eval thực tế đạt <strong>82.0%</strong>).</li>
+      <li>🟡 <strong>Vùng Vàng:</strong> 72.4% – 79.9% (Cần điều tra nguyên nhân các ca cảnh báo phức tạp bị escalate lên chuyên viên).</li>
+      <li>🔴 <strong>Vùng Đỏ:</strong> &lt; 72.4% (Kích hoạt luật <code>R-03</code>: đóng băng tiếp cận khách hàng mới để tinh chỉnh Prompt / Guardrails).</li>
+    </ul>
+  </div>
+
+  <div class="footer-note">
+    <strong>Xác thực tài liệu:</strong> Khớp 100% cấu trúc Rubric v2.0 Day 26 · File nguồn: <code>submissions/operating-dashboard.md</code> · Mã học viên: <code>2A202601910</code>
+  </div>
+</div>
+
+</body>
+</html>
